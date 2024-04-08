@@ -17,6 +17,19 @@
     },
     "price": {
       "type": "decimal"
+    },
+    "media": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": true
+    },
+    "quantity": {
+      "type": "integer"
+    },
+    "physical_product": {
+      "type": "boolean"
     }
   }
 }
