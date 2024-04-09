@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_reviews",
+  "info": {
+    "singularName": "user-review",
+    "pluralName": "user-reviews",
+    "displayName": "User review"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "rating_value": {
+      "type": "float"
+    },
+    "comment": {
+      "type": "text"
+    },
+    "media": {
+      "allowedTypes": [
+        "images",
+        "videos"
+      ],
+      "type": "media",
+      "multiple": true
+    },
+    "users": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "user_reviews"
+    },
+    "order_line": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::order-line.order-line",
+      "inversedBy": "user_review"
+    }
+  }
+}

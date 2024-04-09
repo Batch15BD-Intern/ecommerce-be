@@ -781,6 +781,21 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToMany',
       'api::cart.cart'
     >;
+    orders: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::order.order'
+    >;
+    order_lines: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::order-line.order-line'
+    >;
+    user_reviews: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::user-review.user-review'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -932,6 +947,99 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
   };
 }
 
+export interface ApiOrderOrder extends Schema.CollectionType {
+  collectionName: 'orders';
+  info: {
+    singularName: 'order';
+    pluralName: 'orders';
+    displayName: 'Order';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    user: Attribute.Relation<
+      'api::order.order',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    total: Attribute.Decimal;
+    status: Attribute.Enumeration<
+      ['pending', 'processing', 'shipped', 'canceled']
+    >;
+    order_lines: Attribute.Relation<
+      'api::order.order',
+      'oneToMany',
+      'api::order-line.order-line'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::order.order',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::order.order',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiOrderLineOrderLine extends Schema.CollectionType {
+  collectionName: 'order_lines';
+  info: {
+    singularName: 'order-line';
+    pluralName: 'order-lines';
+    displayName: 'Order line';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    user: Attribute.Relation<
+      'api::order-line.order-line',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    product_item: Attribute.Relation<
+      'api::order-line.order-line',
+      'manyToOne',
+      'api::product-item.product-item'
+    >;
+    price: Attribute.Decimal;
+    quantity: Attribute.Integer;
+    order: Attribute.Relation<
+      'api::order-line.order-line',
+      'manyToOne',
+      'api::order.order'
+    >;
+    user_review: Attribute.Relation<
+      'api::order-line.order-line',
+      'oneToOne',
+      'api::user-review.user-review'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::order-line.order-line',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::order-line.order-line',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiProductProduct extends Schema.CollectionType {
   collectionName: 'products';
   info: {
@@ -1006,6 +1114,11 @@ export interface ApiProductItemProductItem extends Schema.CollectionType {
       'api::product-item.product-item',
       'oneToMany',
       'api::cart.cart'
+    >;
+    order_lines: Attribute.Relation<
+      'api::product-item.product-item',
+      'oneToMany',
+      'api::order-line.order-line'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1094,6 +1207,47 @@ export interface ApiUserAddressUserAddress extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::user-address.user-address',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiUserReviewUserReview extends Schema.CollectionType {
+  collectionName: 'user_reviews';
+  info: {
+    singularName: 'user-review';
+    pluralName: 'user-reviews';
+    displayName: 'User review';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    rating_value: Attribute.Float;
+    comment: Attribute.Text;
+    media: Attribute.Media;
+    users: Attribute.Relation<
+      'api::user-review.user-review',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    order_line: Attribute.Relation<
+      'api::user-review.user-review',
+      'oneToOne',
+      'api::order-line.order-line'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::user-review.user-review',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::user-review.user-review',
       'oneToOne',
       'admin::user'
     > &
@@ -1204,10 +1358,13 @@ declare module '@strapi/types' {
       'api::about.about': ApiAboutAbout;
       'api::cart.cart': ApiCartCart;
       'api::category.category': ApiCategoryCategory;
+      'api::order.order': ApiOrderOrder;
+      'api::order-line.order-line': ApiOrderLineOrderLine;
       'api::product.product': ApiProductProduct;
       'api::product-item.product-item': ApiProductItemProductItem;
       'api::promotion.promotion': ApiPromotionPromotion;
       'api::user-address.user-address': ApiUserAddressUserAddress;
+      'api::user-review.user-review': ApiUserReviewUserReview;
       'api::variation.variation': ApiVariationVariation;
       'api::variation-option.variation-option': ApiVariationOptionVariationOption;
     }
