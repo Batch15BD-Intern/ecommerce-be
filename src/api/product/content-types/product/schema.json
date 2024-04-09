@@ -15,9 +15,6 @@
     "name": {
       "type": "string"
     },
-    "price": {
-      "type": "decimal"
-    },
     "image": {
       "type": "media",
       "multiple": false,
@@ -27,7 +24,9 @@
       ]
     },
     "physical_product": {
-      "type": "boolean"
+      "type": "boolean",
+      "required": false,
+      "default": true
     },
     "category": {
       "type": "relation",
@@ -46,6 +45,22 @@
       "relation": "manyToMany",
       "target": "api::discount-code.discount-code",
       "mappedBy": "products"
+    },
+    "description": {
+      "type": "customField",
+      "options": {
+        "preset": "blockBalloon"
+      },
+      "customField": "plugin::ckeditor5.CKEditor"
+    },
+    "attributes": {
+      "type": "json"
+    },
+    "brand": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::brand.brand",
+      "inversedBy": "products"
     }
   }
 }

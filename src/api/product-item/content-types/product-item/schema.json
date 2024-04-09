@@ -23,9 +23,6 @@
         "images"
       ]
     },
-    "sku": {
-      "type": "json"
-    },
     "quantity": {
       "type": "integer"
     },
@@ -52,6 +49,9 @@
       "relation": "oneToMany",
       "target": "api::order-line.order-line",
       "mappedBy": "product_item"
+    },
+    "sku": {
+      "type": "string"
     }
   }
 }
