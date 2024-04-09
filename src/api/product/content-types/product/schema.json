@@ -40,6 +40,12 @@
       "relation": "oneToMany",
       "target": "api::product-item.product-item",
       "mappedBy": "product"
+    },
+    "discount_codes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::discount-code.discount-code",
+      "mappedBy": "products"
     }
   }
 }

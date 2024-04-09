@@ -947,12 +947,62 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
   };
 }
 
+export interface ApiDiscountCodeDiscountCode extends Schema.CollectionType {
+  collectionName: 'discount_codes';
+  info: {
+    singularName: 'discount-code';
+    pluralName: 'discount-codes';
+    displayName: 'Discount code';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    discount_code: Attribute.String;
+    discount_amount: Attribute.Float;
+    expiration_date: Attribute.DateTime;
+    type: Attribute.Enumeration<
+      [
+        'percentage',
+        'fixed_amount',
+        'free_shipping',
+        'minimum_purchase',
+        'new_customer',
+        'limited_time_offer',
+        'referral',
+        'seasonal_holiday',
+        'vip_member_exclusive'
+      ]
+    >;
+    products: Attribute.Relation<
+      'api::discount-code.discount-code',
+      'manyToMany',
+      'api::product.product'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::discount-code.discount-code',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::discount-code.discount-code',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiOrderOrder extends Schema.CollectionType {
   collectionName: 'orders';
   info: {
     singularName: 'order';
     pluralName: 'orders';
     displayName: 'Order';
+    description: '';
   };
   options: {
     draftAndPublish: false;
@@ -971,6 +1021,11 @@ export interface ApiOrderOrder extends Schema.CollectionType {
       'api::order.order',
       'oneToMany',
       'api::order-line.order-line'
+    >;
+    discount_code: Attribute.Relation<
+      'api::order.order',
+      'oneToOne',
+      'api::discount-code.discount-code'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1065,6 +1120,11 @@ export interface ApiProductProduct extends Schema.CollectionType {
       'api::product.product',
       'oneToMany',
       'api::product-item.product-item'
+    >;
+    discount_codes: Attribute.Relation<
+      'api::product.product',
+      'manyToMany',
+      'api::discount-code.discount-code'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1358,6 +1418,7 @@ declare module '@strapi/types' {
       'api::about.about': ApiAboutAbout;
       'api::cart.cart': ApiCartCart;
       'api::category.category': ApiCategoryCategory;
+      'api::discount-code.discount-code': ApiDiscountCodeDiscountCode;
       'api::order.order': ApiOrderOrder;
       'api::order-line.order-line': ApiOrderLineOrderLine;
       'api::product.product': ApiProductProduct;
