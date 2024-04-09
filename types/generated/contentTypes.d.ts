@@ -892,7 +892,7 @@ export interface ApiCartCart extends Schema.CollectionType {
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     product_item: Attribute.Relation<
@@ -908,7 +908,6 @@ export interface ApiCartCart extends Schema.CollectionType {
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<'api::cart.cart', 'oneToOne', 'admin::user'> &
       Attribute.Private;
     updatedBy: Attribute.Relation<'api::cart.cart', 'oneToOne', 'admin::user'> &

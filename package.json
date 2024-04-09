@@ -1,19 +1,20 @@
 {
 	"name": "ecommerce-be",
 	"private": true,
-	"version": "0.1.0",
-	"description": "A Strapi application",
+	"version": "0.1.1",
+	"description": "Backend Online Shopping E-commerce Ex",
 	"scripts": {
 		"dev": "strapi develop",
 		"start": "strapi start",
 		"build": "strapi build",
 		"strapi": "strapi"
 	},
-	"devDependencies": {},
+	"devDependencies": {
+		"biome": "^0.3.3"
+	},
 	"dependencies": {
 		"@_sh/strapi-plugin-ckeditor": "^2.1.1",
 		"@strapi/plugin-cloud": "4.22.1",
-		"@strapi/plugin-graphql": "4.22.1",
 		"@strapi/plugin-i18n": "4.22.1",
 		"@strapi/plugin-users-permissions": "4.22.1",
 		"@strapi/provider-upload-cloudinary": "^4.22.1",
