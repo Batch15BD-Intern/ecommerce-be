@@ -1233,6 +1233,7 @@ export interface ApiProductItemProductItem extends Schema.CollectionType {
       'api::order-line.order-line'
     >;
     sku: Attribute.String;
+    name: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1377,10 +1378,20 @@ export interface ApiVariationVariation extends Schema.CollectionType {
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
   };
   attributes: {
-    name: Attribute.String;
+    name: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     category: Attribute.Relation<
       'api::variation.variation',
       'manyToOne',
@@ -1393,7 +1404,6 @@ export interface ApiVariationVariation extends Schema.CollectionType {
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::variation.variation',
       'oneToOne',
@@ -1406,6 +1416,12 @@ export interface ApiVariationVariation extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::variation.variation',
+      'oneToMany',
+      'api::variation.variation'
+    >;
+    locale: Attribute.String;
   };
 }
 
