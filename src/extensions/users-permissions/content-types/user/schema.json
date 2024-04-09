@@ -68,12 +68,6 @@
     "phone": {
       "type": "string"
     },
-    "user_addresses": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::user-address.user-address",
-      "mappedBy": "users"
-    },
     "carts": {
       "type": "relation",
       "relation": "oneToMany",
@@ -97,6 +91,12 @@
       "relation": "oneToMany",
       "target": "api::user-review.user-review",
       "mappedBy": "users"
+    },
+    "user_addresses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::user-address.user-address",
+      "mappedBy": "user"
     }
   }
 }

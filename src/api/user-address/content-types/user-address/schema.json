@@ -30,9 +30,9 @@
     "postal_code": {
       "type": "string"
     },
-    "users": {
+    "user": {
       "type": "relation",
-      "relation": "manyToMany",
+      "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "user_addresses"
     },

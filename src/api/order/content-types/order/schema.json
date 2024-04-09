@@ -40,6 +40,11 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::discount-code.discount-code"
+    },
+    "user_address": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::user-address.user-address"
     }
   }
 }
