@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_ceo_ceos",
+  "info": {
+    "displayName": "CEO",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "contents": {
+      "type": "text"
+    },
+    "name": {
+      "type": "string"
+    }
+  }
+}

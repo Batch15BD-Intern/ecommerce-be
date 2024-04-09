@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "variation_options",
+  "info": {
+    "singularName": "variation-option",
+    "pluralName": "variation-options",
+    "displayName": "Variation Option"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "value": {
+      "type": "string"
+    },
+    "variation": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::variation.variation",
+      "inversedBy": "variation_options"
+    },
+    "product_items": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::product-item.product-item",
+      "mappedBy": "product_config"
+    }
+  }
+}

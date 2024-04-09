@@ -18,18 +18,28 @@
     "price": {
       "type": "decimal"
     },
-    "media": {
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": true
-    },
-    "quantity": {
-      "type": "integer"
+      ]
     },
     "physical_product": {
       "type": "boolean"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "products"
+    },
+    "product_items": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product-item.product-item",
+      "mappedBy": "product"
     }
   }
 }
