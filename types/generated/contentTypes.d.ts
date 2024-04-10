@@ -959,6 +959,11 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
       'oneToMany',
       'api::variation.variation'
     >;
+    promotions: Attribute.Relation<
+      'api::category.category',
+      'manyToMany',
+      'api::promotion.promotion'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1268,6 +1273,11 @@ export interface ApiPromotionPromotion extends Schema.CollectionType {
     discount_rate: Attribute.Decimal;
     start_date: Attribute.DateTime;
     end_date: Attribute.DateTime;
+    categories: Attribute.Relation<
+      'api::promotion.promotion',
+      'manyToMany',
+      'api::category.category'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<

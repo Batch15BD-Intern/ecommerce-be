@@ -48,6 +48,12 @@
       "relation": "oneToMany",
       "target": "api::variation.variation",
       "mappedBy": "category"
+    },
+    "promotions": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::promotion.promotion",
+      "mappedBy": "categories"
     }
   }
 }
