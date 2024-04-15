@@ -1,4 +1,5 @@
 import path from 'path';
+const fs = require('fs');
 
 export default ({ env }) => {
   const client = env('DATABASE_CLIENT', 'sqlite');
@@ -58,7 +59,8 @@ export default ({ env }) => {
         ssl: env.bool('DATABASE_SSL', false) && {
           key: env('DATABASE_SSL_KEY', undefined),
           cert: env('DATABASE_SSL_CERT', undefined),
-          ca: env('DATABASE_SSL_CA', undefined),
+          // ca: env('DATABASE_SSL_CA', undefined),
+          ca: fs.readFileSync(`./ca.pem`).toString(),
           capath: env('DATABASE_SSL_CAPATH', undefined),
           cipher: env('DATABASE_SSL_CIPHER', undefined),
           rejectUnauthorized: env.bool(

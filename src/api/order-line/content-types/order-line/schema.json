@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "order_lines",
+  "info": {
+    "singularName": "order-line",
+    "pluralName": "order-lines",
+    "displayName": "Order line",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "order_lines"
+    },
+    "product_item": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::product-item.product-item",
+      "inversedBy": "order_lines"
+    },
+    "price": {
+      "type": "decimal"
+    },
+    "quantity": {
+      "type": "integer"
+    },
+    "order": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::order.order",
+      "inversedBy": "order_lines"
+    },
+    "user_review": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::user-review.user-review",
+      "mappedBy": "order_line"
+    }
+  }
+}

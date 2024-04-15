@@ -15,8 +15,52 @@
     "name": {
       "type": "string"
     },
-    "price": {
-      "type": "decimal"
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "physical_product": {
+      "type": "boolean",
+      "required": false,
+      "default": true
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "products"
+    },
+    "product_items": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product-item.product-item",
+      "mappedBy": "product"
+    },
+    "discount_codes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::discount-code.discount-code",
+      "mappedBy": "products"
+    },
+    "description": {
+      "type": "customField",
+      "options": {
+        "preset": "blockBalloon"
+      },
+      "customField": "plugin::ckeditor5.CKEditor"
+    },
+    "attributes": {
+      "type": "json"
+    },
+    "brand": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::brand.brand",
+      "inversedBy": "products"
     }
   }
 }
