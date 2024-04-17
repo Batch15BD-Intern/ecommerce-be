@@ -61,6 +61,13 @@
       "relation": "manyToOne",
       "target": "api::brand.brand",
       "inversedBy": "products"
+    },
+    "featured": {
+      "type": "enumeration",
+      "enum": [
+        "new",
+        "on best sale"
+      ]
     }
   }
 }

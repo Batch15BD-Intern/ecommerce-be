@@ -1183,6 +1183,7 @@ export interface ApiProductProduct extends Schema.CollectionType {
       'manyToOne',
       'api::brand.brand'
     >;
+    featured: Attribute.Enumeration<['new', 'on best sale']>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
