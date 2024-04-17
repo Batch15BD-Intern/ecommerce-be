@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "product_merchants",
+  "info": {
+    "singularName": "product-merchant",
+    "pluralName": "product-merchants",
+    "displayName": "Product_Merchant"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "product_item": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::product-item.product-item",
+      "inversedBy": "product_merchants"
+    },
+    "merchant": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::merchant.merchant",
+      "inversedBy": "product_merchants"
+    },
+    "quantity": {
+      "type": "integer"
+    }
+  }
+}

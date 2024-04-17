@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "merchants",
+  "info": {
+    "singularName": "merchant",
+    "pluralName": "merchants",
+    "displayName": "Merchant"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "product_merchants": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product-merchant.product-merchant",
+      "mappedBy": "merchant"
+    }
+  }
+}

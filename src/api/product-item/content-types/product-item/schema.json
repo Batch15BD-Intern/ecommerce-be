@@ -55,6 +55,12 @@
     },
     "name": {
       "type": "string"
+    },
+    "product_merchants": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product-merchant.product-merchant",
+      "mappedBy": "product_item"
     }
   }
 }

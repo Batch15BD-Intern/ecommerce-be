@@ -1036,6 +1036,41 @@ export interface ApiDiscountCodeDiscountCode extends Schema.CollectionType {
   };
 }
 
+export interface ApiMerchantMerchant extends Schema.CollectionType {
+  collectionName: 'merchants';
+  info: {
+    singularName: 'merchant';
+    pluralName: 'merchants';
+    displayName: 'Merchant';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String;
+    location: Attribute.String;
+    product_merchants: Attribute.Relation<
+      'api::merchant.merchant',
+      'oneToMany',
+      'api::product-merchant.product-merchant'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::merchant.merchant',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::merchant.merchant',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiOrderOrder extends Schema.CollectionType {
   collectionName: 'orders';
   info: {
@@ -1239,6 +1274,11 @@ export interface ApiProductItemProductItem extends Schema.CollectionType {
     >;
     sku: Attribute.String;
     name: Attribute.String;
+    product_merchants: Attribute.Relation<
+      'api::product-item.product-item',
+      'oneToMany',
+      'api::product-merchant.product-merchant'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1250,6 +1290,46 @@ export interface ApiProductItemProductItem extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::product-item.product-item',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiProductMerchantProductMerchant
+  extends Schema.CollectionType {
+  collectionName: 'product_merchants';
+  info: {
+    singularName: 'product-merchant';
+    pluralName: 'product-merchants';
+    displayName: 'Product_Merchant';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    product_item: Attribute.Relation<
+      'api::product-merchant.product-merchant',
+      'manyToOne',
+      'api::product-item.product-item'
+    >;
+    merchant: Attribute.Relation<
+      'api::product-merchant.product-merchant',
+      'manyToOne',
+      'api::merchant.merchant'
+    >;
+    quantity: Attribute.Integer;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::product-merchant.product-merchant',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::product-merchant.product-merchant',
       'oneToOne',
       'admin::user'
     > &
@@ -1499,10 +1579,12 @@ declare module '@strapi/types' {
       'api::cart.cart': ApiCartCart;
       'api::category.category': ApiCategoryCategory;
       'api::discount-code.discount-code': ApiDiscountCodeDiscountCode;
+      'api::merchant.merchant': ApiMerchantMerchant;
       'api::order.order': ApiOrderOrder;
       'api::order-line.order-line': ApiOrderLineOrderLine;
       'api::product.product': ApiProductProduct;
       'api::product-item.product-item': ApiProductItemProductItem;
+      'api::product-merchant.product-merchant': ApiProductMerchantProductMerchant;
       'api::promotion.promotion': ApiPromotionPromotion;
       'api::user-address.user-address': ApiUserAddressUserAddress;
       'api::user-review.user-review': ApiUserReviewUserReview;
