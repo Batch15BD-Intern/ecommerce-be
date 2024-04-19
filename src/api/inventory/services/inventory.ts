@@ -1,0 +1,5 @@
+/**
+ * inventory service
+ */
+
+export default () => ({});
