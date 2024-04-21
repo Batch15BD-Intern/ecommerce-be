@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 	async afterCreate(event) {
 		// Connected to "Save" button in admin panel
 		const { result } = event;
@@ -22,13 +22,6 @@ module.exports = {
 						{
 							// required
 							to: user.email,
-
-							// optional if /config/plugins.js -> email.settings.defaultFrom is set
-							from: "hoang3409@alwaysdata.net",
-
-							// optional if /config/plugins.js -> email.settings.defaultReplyTo is set
-							replyTo: "hoang3409@alwaysdata.net",
-
 							attachments: [],
 						},
 						{
