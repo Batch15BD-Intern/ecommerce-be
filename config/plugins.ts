@@ -20,11 +20,11 @@ export default ({ env }) => ({
 			providerOptions: {
 				host: "smtp-hoang3409.alwaysdata.net",
 				port: 587,
-				secure: true,
+				// secure: true,
 				username: "hoang3409@alwaysdata.net",
 				password: "k8eHarwdXQH.AJg",
 				rejectUnauthorized: true,
-				requireTLS: true,
+				// requireTLS: true,
 				connectionTimeout: 3,
 			},
 			settings: {
