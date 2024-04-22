@@ -1431,12 +1431,13 @@ export interface ApiSubscriberSubscriber extends Schema.CollectionType {
     singularName: 'subscriber';
     pluralName: 'subscribers';
     displayName: 'Subscriber';
+    description: '';
   };
   options: {
     draftAndPublish: false;
   };
   attributes: {
-    email: Attribute.Email;
+    email: Attribute.Email & Attribute.Required & Attribute.Unique;
     activated: Attribute.Boolean & Attribute.DefaultTo<true>;
     token: Attribute.String;
     createdAt: Attribute.DateTime;
