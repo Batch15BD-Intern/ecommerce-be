@@ -796,6 +796,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToMany',
       'api::user-address.user-address'
     >;
+    user_payments: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::user-payment.user-payment'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1156,6 +1161,11 @@ export interface ApiOrderOrder extends Schema.CollectionType {
       'oneToOne',
       'api::user-address.user-address'
     >;
+    user_payment: Attribute.Relation<
+      'api::order.order',
+      'manyToOne',
+      'api::user-payment.user-payment'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -1499,6 +1509,51 @@ export interface ApiUserAddressUserAddress extends Schema.CollectionType {
   };
 }
 
+export interface ApiUserPaymentUserPayment extends Schema.CollectionType {
+  collectionName: 'user_payments';
+  info: {
+    singularName: 'user-payment';
+    pluralName: 'user-payments';
+    displayName: 'User payment';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    is_default: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.DefaultTo<false>;
+    payment_type: Attribute.Enumeration<['COD', 'VISA', 'BANKING']>;
+    provider: Attribute.String;
+    account_number: Attribute.String;
+    users_permissions_user: Attribute.Relation<
+      'api::user-payment.user-payment',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    expiry_date: Attribute.Date;
+    orders: Attribute.Relation<
+      'api::user-payment.user-payment',
+      'oneToMany',
+      'api::order.order'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::user-payment.user-payment',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::user-payment.user-payment',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiUserReviewUserReview extends Schema.CollectionType {
   collectionName: 'user_reviews';
   info: {
@@ -1670,6 +1725,7 @@ declare module '@strapi/types' {
       'api::promotion.promotion': ApiPromotionPromotion;
       'api::subscriber.subscriber': ApiSubscriberSubscriber;
       'api::user-address.user-address': ApiUserAddressUserAddress;
+      'api::user-payment.user-payment': ApiUserPaymentUserPayment;
       'api::user-review.user-review': ApiUserReviewUserReview;
       'api::variation.variation': ApiVariationVariation;
       'api::variation-option.variation-option': ApiVariationOptionVariationOption;

@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_payments",
+  "info": {
+    "singularName": "user-payment",
+    "pluralName": "user-payments",
+    "displayName": "User payment"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "is_default": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "payment_type": {
+      "type": "enumeration",
+      "enum": [
+        "COD",
+        "VISA",
+        "BANKING"
+      ]
+    },
+    "provider": {
+      "type": "string"
+    },
+    "account_number": {
+      "type": "string"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "user_payments"
+    },
+    "expiry_date": {
+      "type": "date"
+    },
+    "orders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::order.order",
+      "mappedBy": "user_payment"
+    }
+  }
+}
