@@ -1,4 +1,5 @@
 export default ({ env }) => ({
+	chartbrew: true,
 	upload: {
 		config: {
 			provider: "cloudinary",

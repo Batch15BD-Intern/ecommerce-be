@@ -7,7 +7,7 @@ export default [
 			contentSecurityPolicy: {
 				useDefaults: true,
 				directives: {
-					"connect-src": ["'self'", "https:"],
+					"connect-src": ["'self'", "http:", "https:"],
 					"media-src": ["'self'", "data:", "blob:", "res.cloudinary.com"],
 					"frame-src": ["'self'", "editor.unlayer.com"],
 					"script-src": [
