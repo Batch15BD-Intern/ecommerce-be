@@ -28,15 +28,12 @@ export default {
 			//Listening for a connection from the frontend
 			socket.on("join", ({ username }) => {
 				// Listening for a join connection
-				console.log("user connected");
-				console.log("username is ", username);
 				if (username) {
 					socket.join("group"); // Adding the user to the group
 					socket.emit("welcome", {
 						// Sending a welcome message to the User
-						user: "bot",
-						text: `${username}, Welcome to the group chat`,
-						userData: username,
+						username: "bot",
+						message: `${username}, Welcome to the group chat`,
 					});
 				} else {
 					console.log("An error occurred");
@@ -44,25 +41,36 @@ export default {
 			});
 			socket.on("sendMessage", async (data) => {
 				// Listening for a sendMessage connection
-				// const strapiData = {
-				// 	// Generating the message data to be stored in Strapi
-				// 	data: {
-				// 		user: data.user,
-				// 		message: data.message,
-				// 	},
-				// };
-        socket.broadcast.to("group").emit("message", {
-          //Sending the message to the group
-          user: data.username,
-          text: data.message,
-        });
-				// const axios = require("axios");
-				// await axios
-				// 	.post("http://localhost:1337/api/messages", strapiData) //Storing the messages in Strapi
-				// 	.then((e) => {
-						
-				// 	})
-				// 	.catch((e) => console.log("error", e.message));
+				const strapiData = {
+					// Generating the message data to be stored in Strapi
+					data: {
+						username: data.username,
+						message: data.message,
+					},
+				};
+
+				const axios = require("axios");
+				const config = {
+					method: "post",
+					maxBodyLength: Number.POSITIVE_INFINITY,
+					url: "https://ecommerce.zeabur.app/api/messages",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization:
+							"Bearer 78912c6f04f40c335179ddf4e5069771f41f3b773db9f864a63311cb3a6f1e9d9a9b8cc25b4aa4ad06663bba4054d91b347ad26cb250ad77723c7e95d18ce9b7e5b9e1f612a26eae59f1a79f0b3d2383d491573719d06cb46add2649e3fbb82f403cbf71dab67e86bf8a8113c4619a8ec42cd646d70cc748d843c9776f120329",
+					},
+					data: strapiData,
+				};
+				await axios
+					.request(config) //Storing the messages in Strapi
+					.then((e) => {
+						socket.broadcast.to("group").emit("message", {
+							//Sending the message to the group
+							username: data.username,
+							message: data.message,
+						});
+					})
+					.catch((e) => console.log("error", e.message));
 			});
 		});
 	},
