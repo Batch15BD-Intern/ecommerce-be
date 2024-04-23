@@ -57,7 +57,7 @@ export default {
 					headers: {
 						"Content-Type": "application/json",
 						Authorization:
-							"Bearer 78912c6f04f40c335179ddf4e5069771f41f3b773db9f864a63311cb3a6f1e9d9a9b8cc25b4aa4ad06663bba4054d91b347ad26cb250ad77723c7e95d18ce9b7e5b9e1f612a26eae59f1a79f0b3d2383d491573719d06cb46add2649e3fbb82f403cbf71dab67e86bf8a8113c4619a8ec42cd646d70cc748d843c9776f120329",
+							"Bearer b1bb51ab964e03be19c94f81149dea9374ef4dc434dba7e64c631b14ba8bae876ca3949587fad1d9b67df970983f3fd553c3a70f5ef393a0d5e4ab99d92db28842e5f195b73ed1d02096a52bd14eef22b86b5e9bd92ec8db13617a9cebd0450862d601f21533e29c5ad34e92a3be21d196309f6b01dfbfbacd800c8a1b15a7ad",
 					},
 					data: strapiData,
 				};
