@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "discount_codes",
+  "info": {
+    "singularName": "discount-code",
+    "pluralName": "discount-codes",
+    "displayName": "Discount code"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "discount_code": {
+      "type": "string"
+    },
+    "discount_amount": {
+      "type": "float"
+    },
+    "expiration_date": {
+      "type": "datetime"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "percentage",
+        "fixed_amount",
+        "free_shipping",
+        "minimum_purchase",
+        "new_customer",
+        "limited_time_offer",
+        "referral",
+        "seasonal_holiday",
+        "vip_member_exclusive"
+      ]
+    },
+    "products": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::product.product",
+      "inversedBy": "discount_codes"
+    }
+  }
+}

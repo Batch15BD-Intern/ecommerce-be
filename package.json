@@ -1,37 +1,49 @@
 {
-  "name": "ecommerce-be",
-  "private": true,
-  "version": "0.1.0",
-  "description": "A Strapi application",
-  "scripts": {
-    "dev": "strapi develop",
-    "start": "strapi start",
-    "build": "strapi build",
-    "strapi": "strapi"
-  },
-  "devDependencies": {},
-  "dependencies": {
-    "@strapi/plugin-cloud": "4.21.1",
-    "@strapi/plugin-graphql": "4.21.1",
-    "@strapi/plugin-i18n": "4.21.1",
-    "@strapi/plugin-users-permissions": "4.21.1",
-    "@strapi/strapi": "4.21.1",
-    "pg": "8.8.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-router-dom": "5.3.4",
-    "sharp": "^0.33.3",
-    "styled-components": "5.3.3"
-  },
-  "author": {
-    "name": "A Strapi developer"
-  },
-  "strapi": {
-    "uuid": "9d32056e-a872-4267-8ca1-039a30c9b5b0"
-  },
-  "engines": {
-    "node": ">=18.0.0 <=20.x.x",
-    "npm": ">=6.0.0"
-  },
-  "license": "MIT"
+	"name": "ecommerce-be",
+	"private": true,
+	"version": "0.1.2",
+	"description": "Backend Online Shopping E-commerce Ex",
+	"scripts": {
+		"dev": "strapi develop",
+		"start": "strapi start",
+		"build": "strapi build",
+		"strapi": "strapi"
+	},
+	"devDependencies": {
+		"biome": "^0.3.3"
+	},
+	"dependencies": {
+		"@_sh/strapi-plugin-ckeditor": "^2.1.1",
+		"@biomejs/biome": "^1.7.0",
+		"@chartbrew/plugin-strapi": "^1.0.1",
+		"@strapi/plugin-cloud": "4.22.1",
+		"@strapi/plugin-content-manager": "4.22.1",
+		"@strapi/plugin-i18n": "4.22.1",
+		"@strapi/plugin-users-permissions": "4.22.1",
+		"@strapi/provider-upload-cloudinary": "4.22.1",
+		"@strapi/strapi": "4.22.1",
+		"better-sqlite3": "^9.5.0",
+		"pg": "8.8.0",
+		"react": "^18.0.0",
+		"react-dom": "^18.0.0",
+		"react-router-dom": "5.3.4",
+		"sharp": "^0.33.3",
+		"sqlite": "^5.1.1",
+		"sqlite3": "^5.1.7",
+		"socket.io": "^4.7.5",
+		"strapi-plugin-email-designer": "^2.2.1",
+		"strapi-provider-email-smtp": "^1.0.3",
+		"styled-components": "5.3.3"
+	},
+	"author": {
+		"name": "A Strapi developer"
+	},
+	"strapi": {
+		"uuid": "9d32056e-a872-4267-8ca1-039a30c9b5b0"
+	},
+	"engines": {
+		"node": ">=18.0.0 <=20.x.x",
+		"npm": ">=6.0.0"
+	},
+	"license": "MIT"
 }

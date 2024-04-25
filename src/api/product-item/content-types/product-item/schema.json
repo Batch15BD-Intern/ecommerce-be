@@ -1,0 +1,66 @@
+{
+  "kind": "collectionType",
+  "collectionName": "product_items",
+  "info": {
+    "singularName": "product-item",
+    "pluralName": "product-items",
+    "displayName": "Product Item",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "price": {
+      "type": "decimal"
+    },
+    "image": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "quantity": {
+      "type": "integer"
+    },
+    "product": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::product.product",
+      "inversedBy": "product_items"
+    },
+    "product_config": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::variation-option.variation-option",
+      "inversedBy": "product_items"
+    },
+    "carts": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::cart.cart",
+      "mappedBy": "product_item"
+    },
+    "order_lines": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::order-line.order-line",
+      "mappedBy": "product_item"
+    },
+    "sku": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "product_merchants": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product-merchant.product-merchant",
+      "mappedBy": "product_item"
+    }
+  }
+}

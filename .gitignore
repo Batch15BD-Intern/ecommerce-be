@@ -79,6 +79,7 @@ $RECYCLE.BIN/
 *#
 ssl
 .idea
+.vscode
 nbproject
 public/uploads/*
 !public/uploads/.gitkeep
@@ -113,3 +114,4 @@ dist
 build
 .strapi-updater.json
 yarn.lock
+package-lock.json
