@@ -1,7 +1,7 @@
 {
 	"name": "ecommerce-be",
 	"private": true,
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "Backend Online Shopping E-commerce Ex",
 	"scripts": {
 		"dev": "strapi develop",
