@@ -1,7 +1,7 @@
 {
 	"name": "ecommerce-be",
 	"private": true,
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "Backend Online Shopping E-commerce Ex",
 	"scripts": {
 		"dev": "strapi develop",
@@ -14,6 +14,7 @@
 	},
 	"dependencies": {
 		"@_sh/strapi-plugin-ckeditor": "^2.1.1",
+		"@biomejs/biome": "^1.7.0",
 		"@chartbrew/plugin-strapi": "^1.0.1",
 		"@strapi/plugin-cloud": "4.22.1",
 		"@strapi/plugin-content-manager": "4.22.1",
@@ -27,6 +28,8 @@
 		"react-dom": "^18.0.0",
 		"react-router-dom": "5.3.4",
 		"sharp": "^0.33.3",
+		"sqlite": "^5.1.1",
+		"sqlite3": "^5.1.7",
 		"socket.io": "^4.7.5",
 		"strapi-plugin-email-designer": "^2.2.1",
 		"strapi-provider-email-smtp": "^1.0.3",

@@ -3,18 +3,18 @@
  */
 
 export default {
-	get: async (ctx, next) => {
-		try {
-			const result = await strapi.entityService.findOne(
-				"api::product-item.product-item",
-				ctx.params.id,
-				{
-					fields: ["quantity"],
-				},
-			);
-			return result;
-		} catch (err) {
-			ctx.body = err;
-		}
-	},
+  get: async (ctx, next) => {
+    try {
+      const result = await strapi.entityService.findOne(
+        "api::product-merchant.product-merchant",
+        ctx.params.id,
+        {
+          fields: ["id", "quantity"],
+        },
+      );
+      return result;
+    } catch (err) {
+      ctx.body = err;
+    }
+  },
 };
