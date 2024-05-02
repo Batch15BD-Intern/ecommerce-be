@@ -34,13 +34,15 @@ export default factories.createCoreController('api::order.order', ({ strapi }) =
 
   async create(ctx) {
     const ids: any[] = []
+    let idDiscount = null;
+    // let discount_amount = 0;
     let total = 0;
-
     for (const e of ctx.request.body.data) {
       const product_item = await strapi.entityService.findOne('api::product-item.product-item',
         e.product_item, {
         fields: ["price"],
       });
+      idDiscount = e.discount_code
 
       const res = await strapi.entityService.create("api::order-line.order-line", {
         data: {
@@ -52,9 +54,40 @@ export default factories.createCoreController('api::order.order', ({ strapi }) =
 
       });
       ids.push(res.id);
-      total += e.quantity * product_item.price;
+      // total += e.quantity * product_item.price;
+      let discountedPrice = product_item.price;
+      const findDiscount = await strapi.entityService.findOne("api::discount-code.discount-code", idDiscount, {
+        fields: ["discount_amount", "type"],
+        populate: {
+          products: {
+            fields: ["id"]
+          }
+        },
 
+      });
+      for (const d of findDiscount.products) {
+        const findprdi = await strapi.entityService.findOne("api::product.product", d.id, {
+          populate: {
+            product_items: {
+              fields: ["id"]
+            }
+          }
+        })
 
+        for (const p of findprdi.product_items) {
+
+          if (e.product_item === p.id) { // Check if product item is eligible for discount
+            if (findDiscount.type === 'percentage') {
+              discountedPrice = product_item.price * (1 - findDiscount.discount_amount);
+            } else {
+              discountedPrice -= findDiscount.discount_amount; // Fixed amount discount
+            }
+          }
+
+        }
+        total += e.quantity * discountedPrice;
+      }
+      console.log(discountedPrice)
     }
     const userAddress = await strapi.entityService.findMany('api::user-address.user-address', {
       filters: {
@@ -63,15 +96,26 @@ export default factories.createCoreController('api::order.order', ({ strapi }) =
       sort: ["createdAt:desc"],
       limit: 1
     });
-    const latestAddressId = userAddress[0].id;
+
+
+
+
+    // if (idDiscount > 0) {
+
+    //   if (findDiscount) {
+    //     discount_amount = findDiscount.type === 'fixed_amount' ? findDiscount.discount_amount : total * (findDiscount.discount_amount / 100);
+    //   }
+
+    // }
     const result = await strapi.entityService.create("api::order.order", {
       data: {
         user: ctx.state.user.id,
         status: "pending",
         order_lines: ids,
-        user_address: latestAddressId,
-        total: total
-      }
+        user_address: userAddress[0].id,
+        total: total,
+        discount_code: idDiscount
+      },
     });
     return result
   },

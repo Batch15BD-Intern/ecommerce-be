@@ -590,6 +590,37 @@ export interface PluginContentReleasesReleaseAction
   };
 }
 
+export interface PluginChartbrewChartbrew extends Schema.SingleType {
+  collectionName: 'chartbrews';
+  info: {
+    singularName: 'chartbrew';
+    pluralName: 'chartbrews';
+    displayName: 'Chartbrew';
+  };
+  options: {
+    draftAndPublish: false;
+    comment: '';
+  };
+  attributes: {
+    host: Attribute.String & Attribute.Required;
+    token: Attribute.String & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::chartbrew.chartbrew',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::chartbrew.chartbrew',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginI18NLocale extends Schema.CollectionType {
   collectionName: 'i18n_locale';
   info: {
@@ -796,6 +827,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToMany',
       'api::user-address.user-address'
     >;
+    user_payments: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::user-payment.user-payment'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -806,6 +842,55 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'plugin::users-permissions.user',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface PluginEmailDesignerEmailTemplate
+  extends Schema.CollectionType {
+  collectionName: 'email_templates';
+  info: {
+    singularName: 'email-template';
+    pluralName: 'email-templates';
+    displayName: 'Email-template';
+    name: 'email-template';
+  };
+  options: {
+    draftAndPublish: false;
+    timestamps: true;
+    increments: true;
+    comment: '';
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    templateReferenceId: Attribute.Integer & Attribute.Unique;
+    design: Attribute.JSON;
+    name: Attribute.String;
+    subject: Attribute.String;
+    bodyHtml: Attribute.Text;
+    bodyText: Attribute.Text;
+    enabled: Attribute.Boolean & Attribute.DefaultTo<true>;
+    tags: Attribute.JSON;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::email-designer.email-template',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::email-designer.email-template',
       'oneToOne',
       'admin::user'
     > &
@@ -1071,6 +1156,37 @@ export interface ApiMerchantMerchant extends Schema.CollectionType {
   };
 }
 
+export interface ApiMessageMessage extends Schema.CollectionType {
+  collectionName: 'messages';
+  info: {
+    singularName: 'message';
+    pluralName: 'messages';
+    displayName: 'Message';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    username: Attribute.String;
+    message: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::message.message',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::message.message',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiOrderOrder extends Schema.CollectionType {
   collectionName: 'orders';
   info: {
@@ -1088,7 +1204,7 @@ export interface ApiOrderOrder extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
-    total: Attribute.Decimal;
+    total: Attribute.Decimal & Attribute.Required;
     status: Attribute.Enumeration<
       ['pending', 'processing', 'shipped', 'canceled']
     >;
@@ -1106,6 +1222,11 @@ export interface ApiOrderOrder extends Schema.CollectionType {
       'api::order.order',
       'oneToOne',
       'api::user-address.user-address'
+    >;
+    user_payment: Attribute.Relation<
+      'api::order.order',
+      'manyToOne',
+      'api::user-payment.user-payment'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1157,6 +1278,11 @@ export interface ApiOrderLineOrderLine extends Schema.CollectionType {
       'api::order-line.order-line',
       'oneToOne',
       'api::user-review.user-review'
+    >;
+    product_merchant: Attribute.Relation<
+      'api::order-line.order-line',
+      'oneToOne',
+      'api::product-merchant.product-merchant'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1376,6 +1502,38 @@ export interface ApiPromotionPromotion extends Schema.CollectionType {
   };
 }
 
+export interface ApiSubscriberSubscriber extends Schema.CollectionType {
+  collectionName: 'subscribers';
+  info: {
+    singularName: 'subscriber';
+    pluralName: 'subscribers';
+    displayName: 'Subscriber';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    email: Attribute.Email & Attribute.Required & Attribute.Unique;
+    activated: Attribute.Boolean & Attribute.DefaultTo<true>;
+    token: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::subscriber.subscriber',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::subscriber.subscriber',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiUserAddressUserAddress extends Schema.CollectionType {
   collectionName: 'user_addresses';
   info: {
@@ -1411,6 +1569,51 @@ export interface ApiUserAddressUserAddress extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::user-address.user-address',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiUserPaymentUserPayment extends Schema.CollectionType {
+  collectionName: 'user_payments';
+  info: {
+    singularName: 'user-payment';
+    pluralName: 'user-payments';
+    displayName: 'User payment';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    is_default: Attribute.Boolean &
+      Attribute.Required &
+      Attribute.DefaultTo<false>;
+    payment_type: Attribute.Enumeration<['COD', 'VISA', 'BANKING']>;
+    provider: Attribute.String;
+    account_number: Attribute.String;
+    users_permissions_user: Attribute.Relation<
+      'api::user-payment.user-payment',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    expiry_date: Attribute.Date;
+    orders: Attribute.Relation<
+      'api::user-payment.user-payment',
+      'oneToMany',
+      'api::order.order'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::user-payment.user-payment',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::user-payment.user-payment',
       'oneToOne',
       'admin::user'
     > &
@@ -1570,23 +1773,28 @@ declare module '@strapi/types' {
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
+      'plugin::chartbrew.chartbrew': PluginChartbrewChartbrew;
       'plugin::i18n.locale': PluginI18NLocale;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'plugin::email-designer.email-template': PluginEmailDesignerEmailTemplate;
       'api::about.about': ApiAboutAbout;
       'api::brand.brand': ApiBrandBrand;
       'api::cart.cart': ApiCartCart;
       'api::category.category': ApiCategoryCategory;
       'api::discount-code.discount-code': ApiDiscountCodeDiscountCode;
       'api::merchant.merchant': ApiMerchantMerchant;
+      'api::message.message': ApiMessageMessage;
       'api::order.order': ApiOrderOrder;
       'api::order-line.order-line': ApiOrderLineOrderLine;
       'api::product.product': ApiProductProduct;
       'api::product-item.product-item': ApiProductItemProductItem;
       'api::product-merchant.product-merchant': ApiProductMerchantProductMerchant;
       'api::promotion.promotion': ApiPromotionPromotion;
+      'api::subscriber.subscriber': ApiSubscriberSubscriber;
       'api::user-address.user-address': ApiUserAddressUserAddress;
+      'api::user-payment.user-payment': ApiUserPaymentUserPayment;
       'api::user-review.user-review': ApiUserReviewUserReview;
       'api::variation.variation': ApiVariationVariation;
       'api::variation-option.variation-option': ApiVariationOptionVariationOption;

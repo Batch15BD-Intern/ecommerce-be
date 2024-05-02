@@ -17,6 +17,17 @@ export default factories.createCoreController('api::cart.cart', ({ strapi }) => 
           populate: {
             image: {
               fields: ['formats']
+            },
+            product: {
+              fields: ["id", "name"]
+            },
+            product_merchants: {
+              fields: ["id",],
+              populate: {
+                merchant: {
+                  fields: ["id", "name"]
+                }
+              }
             }
           }
         }
@@ -57,16 +68,16 @@ export default factories.createCoreController('api::cart.cart', ({ strapi }) => 
         }
       }
     })
-    if (temp[0].carts.length > 0) {
-      return {
-        data: null,
-        error: {
-          status: 400,
-          name: 'ItemExistsError',
-          message: 'Product item already exists'
-        }
-      };
-    }
+    // if (temp[0].carts.length > 0) {
+    //     return {
+    //         data: null,
+    //         error: {
+    //             status: 400,
+    //             name: 'ItemExistsError',
+    //             message: 'Product item already exists'
+    //         }
+    //     };
+    // }
     const product_item = await strapi.entityService.findOne('api::product-item.product-item', body.data.product_item, {
       fields: ['quantity'],
     });
@@ -86,7 +97,7 @@ export default factories.createCoreController('api::cart.cart', ({ strapi }) => 
         error: {
           status: 400,
           name: 'FieldError',
-          message: 'Quantity is not enough'
+          message: 'Số lượng trong kho không đủ!!'
         }
       }
     }
@@ -167,7 +178,7 @@ export default factories.createCoreController('api::cart.cart', ({ strapi }) => 
         error: {
           status: 400,
           name: 'FieldError',
-          message: 'Quantity is not enough'
+          message: 'Số lượng trong kho không đủ!!'
         }
       }
     }
