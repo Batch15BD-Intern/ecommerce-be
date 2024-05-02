@@ -37,7 +37,6 @@ export default [
 			headers: "*",
 			origin: [
 				"http://localhost:1337",
-				"https://ecommerce.zeabur.app/",
 				"https://ecommerce-fe.zeabur.app/",
 			],
 		},
