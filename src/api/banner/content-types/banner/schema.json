@@ -1,0 +1,22 @@
+{
+  "kind": "singleType",
+  "collectionName": "banners",
+  "info": {
+    "singularName": "banner",
+    "pluralName": "banners",
+    "displayName": "Banner",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "BannerItem": {
+      "displayName": "Banner Item",
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.banner-item"
+    }
+  }
+}

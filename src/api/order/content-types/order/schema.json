@@ -45,6 +45,12 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::user-address.user-address"
+    },
+    "user_payment": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::user-payment.user-payment",
+      "inversedBy": "orders"
     }
   }
 }
