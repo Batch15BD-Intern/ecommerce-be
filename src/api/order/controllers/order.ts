@@ -34,7 +34,7 @@ export default factories.createCoreController(
 		},
 		async orderAll(ctx) {
 			const order = await super.find(ctx);
-			return { data: order };
+			return order;
 		},
 
 		async create(ctx) {
