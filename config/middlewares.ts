@@ -30,8 +30,21 @@ export default [
 			},
 		},
 	},
-	"strapi::cors",
 	"strapi::poweredBy",
+	{
+		name: "strapi::cors",
+		config: {
+			enabled: true,
+			headers: "*",
+			origin: [
+				"http://localhost:1337",
+				"https://ecommerce-fe.zeabur.app",
+				"https://ecommerce-be.zeabur.app",
+				"https://chartbrew-be.zeabur.app",
+				"https://chartbrew-fe.zeabur.app",
+			],
+		},
+	},
 	"strapi::query",
 	"strapi::body",
 	"strapi::session",
