@@ -113,9 +113,9 @@ export default factories.createCoreController(
                 }
               }
             }
-            total += e.quantity * discountedPrice;
           }
-          console.log(discountedPrice);
+          total += e.quantity * discountedPrice;
+
 
         } else {
           total += e.quantity * product_item.price
