@@ -43,16 +43,16 @@
       "target": "api::product.product",
       "mappedBy": "category"
     },
-    "variations": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::variation.variation",
-      "mappedBy": "category"
-    },
     "promotions": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::promotion.promotion",
+      "mappedBy": "categories"
+    },
+    "variations": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::variation.variation",
       "mappedBy": "categories"
     }
   }

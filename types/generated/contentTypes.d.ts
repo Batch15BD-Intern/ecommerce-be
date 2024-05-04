@@ -1070,15 +1070,15 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
       'oneToMany',
       'api::product.product'
     >;
-    variations: Attribute.Relation<
-      'api::category.category',
-      'oneToMany',
-      'api::variation.variation'
-    >;
     promotions: Attribute.Relation<
       'api::category.category',
       'manyToMany',
       'api::promotion.promotion'
+    >;
+    variations: Attribute.Relation<
+      'api::category.category',
+      'manyToMany',
+      'api::variation.variation'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -1403,7 +1403,6 @@ export interface ApiProductItemProductItem extends Schema.CollectionType {
   attributes: {
     price: Attribute.Decimal;
     image: Attribute.Media;
-    quantity: Attribute.Integer;
     product: Attribute.Relation<
       'api::product-item.product-item',
       'manyToOne',
@@ -1711,9 +1710,9 @@ export interface ApiVariationVariation extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    category: Attribute.Relation<
+    categories: Attribute.Relation<
       'api::variation.variation',
-      'manyToOne',
+      'manyToMany',
       'api::category.category'
     >;
     variation_options: Attribute.Relation<
