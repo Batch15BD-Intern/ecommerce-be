@@ -38,8 +38,8 @@ export default [
 			headers: "*",
 			origin: [
 				"http://localhost:1337",
+				"https://ecommerce.zeabur.app",
 				"https://ecommerce-fe.zeabur.app",
-				"https://ecommerce-be.zeabur.app",
 				"https://chartbrew-be.zeabur.app",
 				"https://chartbrew-fe.zeabur.app",
 			],
