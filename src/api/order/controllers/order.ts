@@ -87,34 +87,42 @@ export default factories.createCoreController(
             },
           },
         );
-        for (const d of findDiscount.products) {
-          const findprdi = await strapi.entityService.findOne(
-            "api::product.product",
-            d.id,
-            {
-              populate: {
-                product_items: {
-                  fields: ["id"],
+        //
+        if (findDiscount) {
+          for (const d of findDiscount.products) {
+            const findprdi = await strapi.entityService.findOne(
+              "api::product.product",
+              d.id,
+              {
+                populate: {
+                  product_items: {
+                    fields: ["id"],
+                  },
                 },
               },
-            },
-          );
+            );
 
-          for (const p of findprdi.product_items) {
-            // Check if product item is eligible for discount
-            if (e.product_item === p.id) {
-              if (findDiscount.type === "percentage") {
-                discountedPrice =
-                  product_item.price * (1 - findDiscount.discount_amount);
-              } else {
-                discountedPrice -= findDiscount.discount_amount; // Fixed amount discount
+            for (const p of findprdi.product_items) {
+              // Check if product item is eligible for discount
+              if (e.product_item === p.id) {
+                if (findDiscount.type === "percentage") {
+                  discountedPrice =
+                    product_item.price * (1 - findDiscount.discount_amount);
+                } else {
+                  discountedPrice -= findDiscount.discount_amount; // Fixed amount discount
+                }
               }
             }
+            total += e.quantity * discountedPrice;
           }
-          total += e.quantity * discountedPrice; // Caculate total price
+          console.log(discountedPrice);
+
+        } else {
+          total += e.quantity * product_item.price
         }
-        console.log(discountedPrice);
       }
+
+      //
       const userAddress = await strapi.entityService.findMany(
         "api::user-address.user-address",
         {
@@ -133,7 +141,7 @@ export default factories.createCoreController(
           order_lines: ids,
           user_address: userAddress[0].id,
           total: total,
-          discount_code: idDiscount,
+          ...(idDiscount !== 0 && { discount_code: idDiscount }),
         },
       });
       return result;
