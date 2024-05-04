@@ -1235,7 +1235,7 @@ export interface ApiOrderOrder extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
-    total: Attribute.Decimal & Attribute.Required;
+    total: Attribute.Decimal;
     status: Attribute.Enumeration<
       ['pending', 'processing', 'shipped', 'canceled']
     >;
@@ -1309,11 +1309,6 @@ export interface ApiOrderLineOrderLine extends Schema.CollectionType {
       'api::order-line.order-line',
       'oneToOne',
       'api::user-review.user-review'
-    >;
-    product_merchant: Attribute.Relation<
-      'api::order-line.order-line',
-      'oneToOne',
-      'api::product-merchant.product-merchant'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;

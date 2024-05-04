@@ -1,9 +1,9 @@
 export default {
-  routes: [
-    {
-      method: 'GET',
-      path: '/orders/all/',
-      handler: 'order.orderAll',
-    },
-  ]
-}
+	routes: [
+		{
+			method: "GET",
+			path: "/all-orders/",
+			handler: "order.orderAll",
+		},
+	],
+};
