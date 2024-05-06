@@ -17,7 +17,7 @@ export default {
 	bootstrap({ strapi }) {
 		const io = require("socket.io")(strapi.server.httpServer, {
 			cors: {
-				origin: "http://localhost:3000",
+				origin: "*",
 				methods: ["GET", "POST"],
 				allowedHeaders: [],
 				credentials: true,
@@ -57,7 +57,7 @@ export default {
 					headers: {
 						"Content-Type": "application/json",
 						Authorization:
-							"Bearer b1bb51ab964e03be19c94f81149dea9374ef4dc434dba7e64c631b14ba8bae876ca3949587fad1d9b67df970983f3fd553c3a70f5ef393a0d5e4ab99d92db28842e5f195b73ed1d02096a52bd14eef22b86b5e9bd92ec8db13617a9cebd0450862d601f21533e29c5ad34e92a3be21d196309f6b01dfbfbacd800c8a1b15a7ad",
+							"Bearer aad7065ceda8b63c5546def824b31513d7d371b7685130b6d341bce002a16902c9ab37ff13e888ccdcfcae6af2c8cd21abc8a512989be02c69a919590096304a31d35a80266ff20ad1c64eeb011305f7984ea0d788cde41675fc756267bdaba9192548be1a3065f9569de8a6df3418c460c87027ba10bb016d991eb1e5299947",
 					},
 					data: strapiData,
 				};

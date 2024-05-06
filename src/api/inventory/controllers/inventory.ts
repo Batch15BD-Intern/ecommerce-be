@@ -4,15 +4,24 @@
 
 export default {
   get: async (ctx, next) => {
+    let totalQuantity = 0
     try {
-      const result = await strapi.entityService.findOne(
+      const result = await strapi.entityService.findMany(
         "api::product-merchant.product-merchant",
-        ctx.params.id,
         {
-          fields: ["id", "quantity"],
+          filters:{
+            product_item:{
+              id:{
+                $eq: ctx.params.id
+              }
+            }
+          },
+          fields: ["quantity"],
         },
       );
-      return result;
+      for (const q of result)
+        totalQuantity += q.quantity
+      return  {quantity: totalQuantity};
     } catch (err) {
       ctx.body = err;
     }

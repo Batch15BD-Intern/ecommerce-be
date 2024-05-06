@@ -23,9 +23,6 @@
         "images"
       ]
     },
-    "quantity": {
-      "type": "integer"
-    },
     "product": {
       "type": "relation",
       "relation": "manyToOne",
